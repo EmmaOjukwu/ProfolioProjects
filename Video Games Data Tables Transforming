@@ -1,0 +1,125 @@
+Select *
+From dbo.videogamesales
+
+
+
+
+
+-- Full Table without N/A, basically without Nulls
+
+Select *
+From dbo.videogamesales
+Where Year not like 'N/A'
+Order by Year asc
+
+
+
+--Platform
+
+Select Rank, Name, PLATFORM, Year
+From dbo.VideoGameSales
+Where Year  not like 'N/A'
+
+
+--Genre 
+
+Select Rank, Name, Genre, Year
+From dbo.VideoGameSales
+Where Year  not like 'N/A'
+
+--Publisher
+
+Select Rank, Name, Publisher, Year
+From dbo.VideoGameSales
+Where Year  not like 'N/A'
+Order By Year asc
+
+
+
+Select *
+From dbo.GlobalVideoGameSales
+
+
+-- GlobalSales without N/A
+
+Select Rank, Name, Platform, Year, Genre, Publisher, GlobalSales
+From dbo.globalvideogamesales
+Where Year not like 'N/A'
+Order By Year, globalSales asc
+
+
+
+
+
+
+--Year TotalGlobalSales
+
+SELECT  Year, SUM(GlobalSales) AS TotalGlobalSalesPerYear
+FROM dbo.globalvideogamesales
+WHERE Year NOT LIKE 'N/A'
+GROUP BY  Year 
+ORDER BY Year
+
+
+
+
+
+
+
+
+
+-- didnt work
+
+Select Rank, Name, Platform, Year, Genre, Publisher, Sum(GlobalSales) as TotalGlobalSalesPerYear
+From dbo.globalvideogamesales
+Where Year not like 'N/A'
+Group by Rank 
+Order By Year, globalSales asc
+
+
+
+
+
+Select *
+From dbo.totalglobalsales
+
+--changing id to the primary key 
+
+ALTER TABLE dbo.videogamesales
+ADD PRIMARY KEY (Rank);
+
+
+--changing id data type to int
+
+ALTER TABLE videogamesales
+ALTER COLUMN Rank INT NOT NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Create Table TotalGlobalSales 
+(
+Rank bigint Primary Key,
+Name varchar(50) Unique,
+GlobalSales float,
+Year datetime 
+)
